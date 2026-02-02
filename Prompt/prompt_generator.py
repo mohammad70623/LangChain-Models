@@ -18,3 +18,4 @@ template = PromptTemplate(
     validate_template=True
 )
 
+template.save('template.json')
