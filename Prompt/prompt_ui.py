@@ -39,3 +39,7 @@ prompt = template.invoke({
     "length_input": length_input
 })
 
+if st.button("summarize"):
+    response = model.invoke(prompt)
+    st.subheader("Summary:")
+    st.write(response.content)
