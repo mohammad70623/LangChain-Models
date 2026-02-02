@@ -13,7 +13,7 @@ documents = [
     "Cox’s Bazar plays an important role in Bangladesh’s tourism and local economy."
 ]
 
-query = "What is Cox’s Bazar known for?" 
+query = "tel me about coxsbazar?" 
 
 doc_embedding = embedding.embed_documents(documents)
 query_embedding = embedding.embed_query(query)
