@@ -31,3 +31,11 @@ template = PromptTemplate(
 """, 
     input_variables=["paper_input", "style_input", "length_input"]
 )
+
+#Fill the placeholder 
+prompt = template.invoke({
+    "paper_input": paper_input,
+    "style_input": style_input,
+    "length_input": length_input
+})
+
