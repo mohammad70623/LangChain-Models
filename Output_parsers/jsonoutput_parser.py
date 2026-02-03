@@ -15,3 +15,13 @@ llm = HuggingFacePipeline.from_model_id(
 )
 
 model = ChatHuggingFace(llm=llm)
+
+parser = JsonOutputParser()
+
+template = PromptTemplate(
+    template='Give me the name age city of Bangladesh\n {format_instruction}',
+    input_variables=[],
+    partial_variables={'format_instruction': parser.get_format_instructions()}
+)
+
+prompt = template.format()
