@@ -6,3 +6,9 @@ chat_template = ChatPromptTemplate([
     MessagesPlaceholder(variable_name='chat_history'),
     ('human', '{query}')
 ])
+
+#Load Chat History 
+chat_history=[]
+with open('chat_history.txt') as f:
+    chat_history.extend(f.readlines())
+print(chat_history)
