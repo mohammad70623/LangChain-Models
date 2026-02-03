@@ -6,7 +6,7 @@ llm = HuggingFacePipeline.from_model_id(
     task="text-generation",
     pipeline_kwargs=dict(
         temperature=0.01,
-        max_new_tokens=512
+        max_new_tokens=512 
     )
 
 )
