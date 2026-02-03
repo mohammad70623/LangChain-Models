@@ -26,4 +26,13 @@ template2 = PromptTemplate(
     input_variables=["text"]
 )
 
+# Invoke 1st prompt
+prompt1 = template1.invoke({"topic": "Daffodil International University"})
+result1 = model.invoke(prompt1)
 
+# Invoke 2nd prompt
+prompt2 = template2.invoke({"text": result1.content})
+result2 = model.invoke(prompt2)
+
+print(result1.content)
+print(result2.content)
