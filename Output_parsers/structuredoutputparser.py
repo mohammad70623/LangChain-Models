@@ -1,6 +1,6 @@
 from langchain_huggingface import ChatHuggingFace, HuggingFacePipeline
 from langchain_core.prompts import PromptTemplate
-from langchain.output_parsers import StructuredOutputParser, response_schema
+from langchain_core.output_parsers import StructuredOutputParser, ResponseSchema
 
 # Load model
 llm = HuggingFacePipeline.from_model_id(
@@ -16,9 +16,9 @@ llm = HuggingFacePipeline.from_model_id(
 model = ChatHuggingFace(llm=llm)
 
 schema = [
-    response_schema(name='fact_1', description='fact 1 about the topic'),
-    response_schema(name='fact_2', description='fact 2 about the topic'),
-    response_schema(name='fact_3', description='fact 3 about the topic'),
+    ResponseSchema(name='fact_1', description='fact 1 about the topic'),
+    ResponseSchema(name='fact_2', description='fact 2 about the topic'),
+    ResponseSchema(name='fact_3', description='fact 3 about the topic'),
 ]
 
 parser= StructuredOutputParser.from_response_schemas(schema)
@@ -29,3 +29,7 @@ template = PromptTemplate(
     partial_variables={'format_instruction': parser.get_format_instructions()}
 )
 
+
+chain = template | model | parser
+result = chain.invoke({'topic': 'Bangladesh'})
+print(result) 
