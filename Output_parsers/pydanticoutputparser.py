@@ -15,3 +15,10 @@ llm = HuggingFacePipeline.from_model_id(
 )
 
 model = ChatHuggingFace(llm=llm) 
+
+class Person(BaseModel):
+    name: str = Field(..., description="The name of the person")
+    age: int = Field(..., gt=18, description="The age of the person")
+    city: str = Field(..., description="The city where the person lives")
+
+parser = PydanticOutputParser(pydantic_object=Person)
