@@ -15,3 +15,10 @@ llm = HuggingFacePipeline.from_model_id(
 
 model = ChatHuggingFace(llm=llm)
 
+schema = [
+    response_schema(name='fact_1', description='fact 1 about the topic'),
+    response_schema(name='fact_2', description='fact 2 about the topic'),
+    response_schema(name='fact_3', description='fact 3 about the topic'),
+]
+
+parser= StructuredOutputParser.from_response_schemas(schema)
