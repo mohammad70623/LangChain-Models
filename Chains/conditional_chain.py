@@ -1,7 +1,7 @@
 from langchain_groq import ChatGroq
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import RunnableParallel
+from langchain_core.runnables import RunnableParallel, RunnableBranch, RunnableLambda
 from dotenv import load_dotenv
 from langchain_core.output_parsers import PydanticOutputParser
 from pydantic import BaseModel, Field
@@ -25,5 +25,23 @@ prompt1 = PromptTemplate(
 
 classifier_chain = prompt1 | model | parser2
 
-classifier_chain = prompt1 | model | parser 
-print(classifier_chain.invoke({"feedback": "The product quality is excellent and delivery was prompt."}))
+
+prompt2 = PromptTemplate(
+    template='Write an appropriate response to this positive feedback \n {feedback}',
+    input_variables=['feedback']
+)
+
+prompt3 = PromptTemplate(
+    template='Write an appropriate response to this negative feedback \n {feedback}',
+    input_variables=['feedback']
+)
+
+branch_chain = RunnableBranch(
+    (lambda x:x.sentiment == 'positive', prompt2 | model | parser),
+    (lambda x:x.sentiment == 'negative', prompt3 | model | parser),
+    RunnableLambda(lambda x: "could not find sentiment")
+)
+
+chain = classifier_chain | branch_chain
+
+print(chain.invoke({'feedback': "you did a great job!"}))
