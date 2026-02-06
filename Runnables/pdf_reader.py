@@ -1,4 +1,3 @@
-# pdf_reader.py
 from langchain_groq import ChatGroq
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -51,3 +50,4 @@ Context:{retrieved_text}
 answer = llm.invoke(prompt)
 
 print(answer.content)
+
