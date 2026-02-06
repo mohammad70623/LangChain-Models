@@ -21,3 +21,15 @@ text_splitter = RecursiveCharacterTextSplitter(
 )
 chunks = text_splitter.split_documents(documents)
 
+
+embeddings = HuggingFaceEmbeddings(
+    model_name="sentence-transformers/all-MiniLM-L6-v2"
+)
+vectorstore = FAISS.from_documents(chunks, embeddings)
+
+retriever = vectorstore.as_retriever()
+
+query = "What are the key takeaways from the documents?"
+retrieved_docs = retriever.invoke(query)
+
+retrieved_text = "\n".join(doc.page_content for doc in retrieved_docs)
