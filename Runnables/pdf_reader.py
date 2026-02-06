@@ -33,3 +33,21 @@ query = "What are the key takeaways from the documents?"
 retrieved_docs = retriever.invoke(query)
 
 retrieved_text = "\n".join(doc.page_content for doc in retrieved_docs)
+
+llm = ChatGroq(
+    model="llama-3.1-8b-instant",
+    temperature=0,
+    max_tokens=1024,
+    api_key=GROQ_API_KEY
+)
+
+prompt = f"""
+Based on the following retrieved text, answer the question.
+
+Question:{query}
+Context:{retrieved_text}
+"""
+
+answer = llm.invoke(prompt)
+
+print(answer.content)
