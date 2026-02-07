@@ -6,4 +6,16 @@ from langchain_core.runnables import RunnableSequence, RunnableParallel, Runnabl
 
 load_dotenv() 
 
-model = ChatGroq(model="openai/gpt-oss-safeguard-20b", temperature=0, max_tokens=1024) 
+model = ChatGroq(model="openai/gpt-oss-safeguard-20b", temperature=0, max_tokens=1024)
+
+prompt1 = PromptTemplate(
+    template= "Write a detail report on {topic}",
+    input_variables=["topic"],
+)
+
+prompt2 = PromptTemplate(
+    template= "Summarize the following report {text}",
+    input_variables=["text"],
+)
+
+perser = StrOutputParser()
