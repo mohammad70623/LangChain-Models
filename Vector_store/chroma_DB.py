@@ -41,3 +41,8 @@ vector_store = Chroma(
     collection_name='sample'
 )
 
+# add documents
+vector_store.add_documents(docs)
+
+# view documents
+vector_store.get(include=['embeddings','documents', 'metadatas'])
