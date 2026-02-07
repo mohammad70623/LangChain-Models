@@ -20,3 +20,13 @@ prompt2 = PromptTemplate(
     input_variables=["text"]
 )
 
+joke_gen_chain = RunnableSequence(prompt1, model, perser)
+
+parallel_chain = RunnableParallel({
+    "joke": RunnablePassthrough(),
+    "explanation": RunnableSequence(prompt2, model, perser)
+})
+
+final_chain = RunnableSequence(joke_gen_chain, parallel_chain)
+response = final_chain.invoke({"topic": "AI"})
+print(response)
