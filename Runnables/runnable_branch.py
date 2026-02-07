@@ -19,3 +19,13 @@ prompt2 = PromptTemplate(
 )
 
 perser = StrOutputParser()
+
+report_gen_chain = RunnableSequence(prompt1, model, perser)
+
+branch_chain = RunnableBranch(
+    (lambda x: len(x.split()) > 500, RunnableSequence(prompt2, model, perser)),
+    RunnablePassthrough()
+)
+final_chain = RunnableSequence(report_gen_chain, branch_chain)
+response = final_chain.invoke({"topic": "AI"})
+print(response)
