@@ -9,4 +9,10 @@ load_dotenv()
 
 model = ChatGroq(model="openai/gpt-oss-safeguard-20b", temperature=0, max_tokens=1024) 
 
+prompt = PromptTemplate(
+    template='Write a summary for the following poem - \n {poem}',
+    input_variables=['poem']
+)
+
+parser = StrOutputParser()
 
