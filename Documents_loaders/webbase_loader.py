@@ -8,3 +8,10 @@ load_dotenv()
 
 model = ChatGroq(model="openai/gpt-oss-safeguard-20b", temperature=0, max_tokens=1024) 
 
+prompt = PromptTemplate(
+    template='Answer the following question \n {question} from the following text - \n {text}',
+    input_variables=['question','text']
+)
+
+parser = StrOutputParser()
+
