@@ -46,3 +46,22 @@ vector_store.add_documents(docs)
 
 # view documents
 vector_store.get(include=['embeddings','documents', 'metadatas'])
+
+# search documents
+vector_store.similarity_search(
+    query='Who among these are a bowler?',
+    k=2
+)
+
+# search with similarity score
+vector_store.similarity_search_with_score(
+    query='Who among these are a bowler?',
+    k=2
+)
+
+# meta-data filtering
+vector_store.similarity_search_with_score(
+    query="",
+    filter={"team": "Dhaka Capitals"}
+)
+
