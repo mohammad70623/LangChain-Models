@@ -84,3 +84,9 @@ vector_store.update_document(document_id='057857e7-822e-450c-9892-b0d317e07e56',
 # view documents
 vector_store.get(include=['embeddings','documents', 'metadatas'])
 
+# delete document
+vector_store.delete(ids=['9f2a949d-3925-470f-8741-5519dc3e42de'])
+
+# view documents
+vector_store.get(include=['embeddings','documents', 'metadatas'])
+
