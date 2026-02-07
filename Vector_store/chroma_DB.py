@@ -65,3 +65,22 @@ vector_store.similarity_search_with_score(
     filter={"team": "Dhaka Capitals"}
 )
 
+# update documents
+updated_doc1 = Document(
+    page_content="""
+Shakib Al Hasan is Bangladesh's premier all-rounder, known for his consistency and impact in all formats of cricket. 
+He has been a key player in the Bangladesh Premier League (BPL), leading teams with both bat and ball. 
+Shakib's left-arm spin and middle-order batting have turned matches in his team's favor on numerous occasions. 
+Renowned for his calm leadership and cricketing intelligence, he guides younger players and performs under pressure. 
+His contributions have cemented his reputation as one of the finest all-rounders in modern cricket.
+""",
+    metadata={"team": "Comilla Victorians"}
+)
+
+
+vector_store.update_document(document_id='057857e7-822e-450c-9892-b0d317e07e56', document=updated_doc1)
+
+
+# view documents
+vector_store.get(include=['embeddings','documents', 'metadatas'])
+
