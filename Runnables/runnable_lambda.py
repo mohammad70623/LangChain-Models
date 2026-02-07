@@ -6,6 +6,9 @@ from langchain_core.runnables import RunnableSequence, RunnableParallel, Runnabl
 
 load_dotenv() 
 
+def word_count(text):
+    return len(text.split())
+
 model = ChatGroq(model="openai/gpt-oss-safeguard-20b", temperature=0, max_tokens=1024) 
 
 prompt = PromptTemplate(
@@ -14,3 +17,14 @@ prompt = PromptTemplate(
 )
 
 perser = StrOutputParser() 
+
+joke_gen_chain = RunnableSequence(prompt, model, perser)
+
+parallel_chain = RunnableParallel({
+    "joke": RunnablePassthrough(),
+    "word_count": RunnableLambda(word_count)
+})
+
+final_chain = RunnableSequence(joke_gen_chain, parallel_chain)
+response = final_chain.invoke({"topic": "AI"})
+print(response)
